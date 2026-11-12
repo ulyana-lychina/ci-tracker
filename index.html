@@ -86,11 +86,16 @@
       font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums;
     }
     .goal-ring .gname {
-      font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;
+      font-size: 0.7rem; color: var(--text-dim); margin-top: 2px;
       word-break: break-word;
     }
+    .goal-ring .gname:empty { display: none; }
     .goal-ring .gmeta {
-      font-size: 0.7rem; color: var(--text-dim); opacity: 0.85;
+      font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums;
+      margin-top: 2px;
+    }
+    .goal-ring .glang {
+      font-size: 0.7rem; color: var(--text-dim); font-weight: 500;
     }
     .goal-ring .gdel {
       background: none; border: none; color: var(--text-dim);
@@ -154,7 +159,7 @@
       padding: 4px 6px; border-radius: 6px; font-size: 0.75rem;
     }
     .chart-wrap { position: relative; height: 240px; }
-    .chart-hint { font-size: 0.7rem; color: var(--text-dim); margin-top: 6px; }
+    .chart-hint { font-size: 0.75rem; color: var(--text-dim); margin-top: 8px; line-height: 1.4; font-variant-numeric: tabular-nums; }
 
     .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; align-items: center; }
     .btn {
@@ -300,8 +305,8 @@
           <div class="goals-empty" id="goalsEmpty">Пока нет целей — добавь справа</div>
         </div>
         <div class="goal-form">
-          <input type="text" id="goalName" placeholder="Название (напр. 100 ч EN)" />
-          <input type="number" id="goalHours" placeholder="Часы" min="0.1" step="0.5" />
+          <input type="number" id="goalHours" placeholder="Часы цели" min="0.1" step="0.5" />
+          <input type="text" id="goalName" placeholder="Название (необязательно)" />
           <select id="goalLang">
             <option value="total">Всего (EN+DE)</option>
             <option value="en">Только English</option>
@@ -672,8 +677,8 @@
             <text x="50" y="54" text-anchor="middle" fill="${color}"
               font-size="16" font-weight="700">${Math.round(pct)}%</text>
           </svg>
-          <div class="gname">${escapeHtml(g.name || 'Цель')}</div>
-          <div class="gmeta">${fmtTime(doneSec)} / ${g.hours}ч · ${langLabel}</div>
+          <div class="gmeta" style="color:${color}">${g.hours}ч</div>
+          <div class="glang">${langLabel}${g.name ? ' · ' + escapeHtml(g.name) : ''}</div>
           <button type="button" class="gdel" data-id="${g.id}">удалить</button>
         `;
         box.appendChild(div);
@@ -742,7 +747,17 @@
         cumEn.push(+(cEn / 3600).toFixed(2));
         cumDe.push(+(cDe / 3600).toFixed(2));
       });
-      document.getElementById('cumHint').textContent = periodLabel(cumPeriod);
+      // period totals for cumulative chart
+      let cumTotEn = 0, cumTotDe = 0;
+      cumDates.forEach((k) => {
+        cumTotEn += data[k].en || 0;
+        cumTotDe += data[k].de || 0;
+      });
+      document.getElementById('cumHint').innerHTML =
+        periodLabel(cumPeriod) +
+        ' · <span style="color:#4fc3f7">EN ' + fmtTime(cumTotEn) + '</span>' +
+        ' · <span style="color:#ff8a65">DE ' + fmtTime(cumTotDe) + '</span>' +
+        ' · <span style="color:#81c784">Σ ' + fmtTime(cumTotEn + cumTotDe) + '</span>';
 
       if (cumChart) cumChart.destroy();
       cumChart = new Chart(document.getElementById('cumChart'), {
@@ -793,8 +808,16 @@
         });
       }
 
-      document.getElementById('barHint').textContent =
-        periodLabel(barPeriod) + (useWeek ? ' · недели' : ' · дни');
+      let barTotEn = 0, barTotDe = 0;
+      barDates.forEach((k) => {
+        barTotEn += data[k].en || 0;
+        barTotDe += data[k].de || 0;
+      });
+      document.getElementById('barHint').innerHTML =
+        periodLabel(barPeriod) + (useWeek ? ' · недели' : ' · дни') +
+        ' · <span style="color:#4fc3f7">EN ' + fmtTime(barTotEn) + '</span>' +
+        ' · <span style="color:#ff8a65">DE ' + fmtTime(barTotDe) + '</span>' +
+        ' · <span style="color:#81c784">Σ ' + fmtTime(barTotEn + barTotDe) + '</span>';
       document.getElementById('btnAggDay').classList.toggle('active', !useWeek);
       document.getElementById('btnAggWeek').classList.toggle('active', useWeek);
 
@@ -1021,7 +1044,7 @@
     });
 
     document.getElementById('goalAdd').addEventListener('click', () => {
-      const name = document.getElementById('goalName').value.trim() || 'Цель';
+      const name = document.getElementById('goalName').value.trim();
       const hours = parseFloat(document.getElementById('goalHours').value);
       if (!hours || hours <= 0) { alert('Укажи часы цели'); return; }
       const lang = document.getElementById('goalLang').value;
