@@ -17,12 +17,9 @@
       --accent-de: #ff8a65;
       --accent-total: #81c784;
       --green: #66bb6a;
-      --red: #ef5350;
       --radius: 14px;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
       background: var(--bg);
@@ -30,536 +27,235 @@
       min-height: 100vh;
       line-height: 1.5;
     }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 16px 60px;
-    }
-
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
     header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 28px;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 16px; margin-bottom: 28px;
     }
-
-    h1 {
-      font-size: 1.55rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
+    h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.02em; }
     h1 span { color: var(--accent-en); }
-
-    .subtitle {
-      color: var(--text-dim);
-      font-size: 0.9rem;
-      margin-top: 2px;
-    }
+    .subtitle { color: var(--text-dim); font-size: 0.9rem; margin-top: 2px; }
 
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-      margin-bottom: 16px;
+      gap: 14px; margin-bottom: 20px;
     }
-
     .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px 20px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px;
     }
-
     .card .label {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 6px;
+      font-size: 0.8rem; color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;
     }
-
     .card .value {
-      font-size: 1.65rem;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
+      font-size: 1.65rem; font-weight: 700; font-variant-numeric: tabular-nums;
     }
-
     .card.en .value { color: var(--accent-en); }
     .card.de .value { color: var(--accent-de); }
     .card.total .value { color: var(--accent-total); }
     .card.days .value { color: #ce93d8; }
+    .card .sub { font-size: 0.8rem; color: var(--text-dim); margin-top: 4px; }
 
-    .card .sub {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin-top: 4px;
+    /* Goals */
+    .goals-section {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin-bottom: 20px;
     }
-
-    /* Period filter */
-    .period-bar {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
+    .goals-section h3 {
+      font-size: 0.95rem; color: var(--text-dim); margin-bottom: 14px;
     }
-
-    .period-bar .period-label {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin-right: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+    .goals-row {
+      display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;
     }
-
-    .period-btn {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    .goal-rings {
+      display: flex; flex-wrap: wrap; gap: 16px; flex: 1; min-width: 200px;
     }
-
-    .period-btn:hover { background: #252a35; }
-    .period-btn.active {
-      background: #1a3a4a;
-      border-color: var(--accent-en);
-      color: var(--accent-en);
+    .goal-ring {
+      width: 120px; text-align: center;
     }
-
-    .period-custom {
-      display: none;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      margin-left: 4px;
+    .goal-ring svg { width: 100px; height: 100px; display: block; margin: 0 auto 6px; }
+    .goal-ring .ring-bg { fill: none; stroke: #2a2f3a; stroke-width: 8; }
+    .goal-ring .ring-fg {
+      fill: none; stroke-width: 8; stroke-linecap: round;
+      transform: rotate(-90deg); transform-origin: 50% 50%;
+      transition: stroke-dashoffset 0.4s ease;
     }
-
-    .period-custom.show { display: flex; }
-
-    .period-custom input[type="date"] {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.8rem;
+    .goal-ring .pct {
+      font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums;
     }
-
-    .period-custom input:focus {
-      outline: none;
-      border-color: var(--accent-en);
+    .goal-ring .gname {
+      font-size: 0.75rem; color: var(--text-dim); margin-top: 2px;
+      word-break: break-word;
     }
-
-    .period-hint {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      width: 100%;
-      margin-top: 2px;
+    .goal-ring .gmeta {
+      font-size: 0.7rem; color: var(--text-dim); opacity: 0.85;
     }
-
-    .period-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 10px;
-      margin-bottom: 16px;
+    .goal-ring .gdel {
+      background: none; border: none; color: var(--text-dim);
+      cursor: pointer; font-size: 0.7rem; margin-top: 2px;
     }
-
-    .period-stats .mini {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
+    .goal-ring .gdel:hover { color: #ef5350; }
+    .goals-empty { color: var(--text-dim); font-size: 0.85rem; padding: 12px 0; }
+    .goal-form {
+      display: flex; flex-direction: column; gap: 8px;
+      min-width: 200px; max-width: 260px;
     }
-
-    .period-stats .mini .mlabel {
-      font-size: 0.7rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+    .goal-form input, .goal-form select {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); padding: 8px 10px; border-radius: 8px; font-size: 0.85rem;
     }
-
-    .period-stats .mini .mval {
-      font-size: 1.15rem;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      margin-top: 2px;
+    .goal-form input:focus, .goal-form select:focus {
+      outline: none; border-color: var(--accent-en);
     }
+    .goal-form button {
+      background: #1a3a4a; border: 1px solid var(--accent-en);
+      color: var(--accent-en); padding: 8px 12px; border-radius: 8px;
+      font-weight: 600; cursor: pointer; font-size: 0.85rem;
+    }
+    .goal-form button:hover { background: #204556; }
 
-    .period-stats .mini.en .mval { color: var(--accent-en); }
-    .period-stats .mini.de .mval { color: var(--accent-de); }
-    .period-stats .mini.total .mval { color: var(--accent-total); }
-    .period-stats .mini.avg .mval { color: #ce93d8; }
-
+    /* Charts side by side */
     .charts-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;
     }
-
-    @media (max-width: 720px) {
+    @media (max-width: 800px) {
       .charts-row { grid-template-columns: 1fr; }
     }
-
     .chart-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
     }
-
     .chart-card h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-dim);
+      font-size: 0.9rem; font-weight: 600; color: var(--text-dim); margin-bottom: 8px;
     }
-
-    .chart-wrap {
-      position: relative;
-      height: 240px;
+    .chart-filters {
+      display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; align-items: center;
     }
-
-    .chart-wrap.tall {
-      height: 340px;
+    .chart-filters .cf {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 3px 8px; border-radius: 6px;
+      font-size: 0.7rem; cursor: pointer;
     }
-
-    .charts-row.stack {
-      grid-template-columns: 1fr;
+    .chart-filters .cf:hover { background: #252a35; color: var(--text); }
+    .chart-filters .cf.active {
+      border-color: var(--accent-en); color: var(--accent-en); background: #1a2a35;
     }
-
-    .chart-card .chart-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-      align-items: center;
+    .chart-filters .cf.agg.active {
+      border-color: var(--accent-de); color: var(--accent-de);
     }
-
-    .chart-card .chart-tools .tiny {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      cursor: pointer;
+    .chart-custom {
+      display: none; flex-wrap: wrap; gap: 6px; width: 100%; align-items: center; margin-top: 4px;
     }
-
-    .chart-card .chart-tools .tiny.active {
-      border-color: var(--accent-en);
-      color: var(--accent-en);
+    .chart-custom.show { display: flex; }
+    .chart-custom input[type="date"] {
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+      padding: 4px 6px; border-radius: 6px; font-size: 0.75rem;
     }
+    .chart-wrap { position: relative; height: 240px; }
+    .chart-hint { font-size: 0.7rem; color: var(--text-dim); margin-top: 6px; }
 
-    .chart-card h3 {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
-      align-items: center;
-    }
-
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; align-items: center; }
     .btn {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+      padding: 8px 14px; border-radius: 10px; font-size: 0.85rem; cursor: pointer;
     }
-
     .btn:hover { background: #252a35; }
-    .btn.active {
-      background: #2a3545;
-      border-color: var(--accent-en);
-      color: var(--accent-en);
-    }
-
-    .btn.de.active {
-      border-color: var(--accent-de);
-      color: var(--accent-de);
-    }
+    .btn.active { background: #2a3545; border-color: var(--accent-en); color: var(--accent-en); }
+    .btn.de.active { border-color: var(--accent-de); color: var(--accent-de); }
 
     .section-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size: 1.05rem; font-weight: 600; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
     }
-
     .section-title.collapsible {
-      cursor: pointer;
-      user-select: none;
-      justify-content: space-between;
+      cursor: pointer; user-select: none; justify-content: space-between;
     }
-
-    .section-title.collapsible:hover {
-      color: var(--accent-en);
-    }
-
-    .collapse-chevron {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      transition: transform 0.2s;
-    }
-
-    .collapse-chevron.open {
-      transform: rotate(180deg);
-    }
-
+    .section-title.collapsible:hover { color: var(--accent-en); }
+    .collapse-chevron { font-size: 0.85rem; color: var(--text-dim); transition: transform 0.2s; }
+    .collapse-chevron.open { transform: rotate(180deg); }
     .collapsible-body {
-      overflow: hidden;
-      transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.2s ease;
-      max-height: 5000px;
-      opacity: 1;
+      overflow: hidden; transition: max-height 0.25s ease, opacity 0.2s ease;
+      max-height: 5000px; opacity: 1;
     }
-
     .collapsible-body.collapsed {
-      max-height: 0;
-      opacity: 0;
-      margin: 0 !important;
-      pointer-events: none;
+      max-height: 0; opacity: 0; margin: 0 !important; pointer-events: none;
     }
 
-    .month-nav {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
+    .month-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
     .month-nav button {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.1rem;
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+      width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1.1rem;
     }
-
     .month-nav button:hover { background: #252a35; }
-
-    .month-label {
-      font-weight: 600;
-      min-width: 140px;
-      text-align: center;
-    }
+    .month-label { font-weight: 600; min-width: 140px; text-align: center; }
 
     .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      margin-bottom: 28px;
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 28px;
     }
-
     .cal-head {
-      text-align: center;
-      font-size: 0.75rem;
-      color: var(--text-dim);
-      padding: 6px 0;
-      text-transform: uppercase;
+      text-align: center; font-size: 0.75rem; color: var(--text-dim);
+      padding: 6px 0; text-transform: uppercase;
     }
-
     .cal-day {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      min-height: 72px;
-      padding: 6px 6px 8px;
-      font-size: 0.8rem;
-      position: relative;
-      transition: border-color 0.15s;
-      cursor: pointer;
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+      min-height: 72px; padding: 6px 6px 8px; font-size: 0.8rem; cursor: pointer;
     }
-
-    .cal-day.empty {
-      background: transparent;
-      border-color: transparent;
-      cursor: default;
-    }
-
-    .cal-day .num {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-dim);
-    }
-
-    .cal-day.today {
-      border-color: #5c6bc0;
-      box-shadow: 0 0 0 1px #5c6bc0;
-    }
-
-    .cal-day .bars {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
+    .cal-day.empty { background: transparent; border-color: transparent; cursor: default; }
+    .cal-day .num { font-weight: 600; margin-bottom: 4px; color: var(--text-dim); }
+    .cal-day.today { border-color: #5c6bc0; box-shadow: 0 0 0 1px #5c6bc0; }
+    .cal-day .bars { display: flex; flex-direction: column; gap: 3px; }
     .bar-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.7rem;
-      font-variant-numeric: tabular-nums;
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.7rem; font-variant-numeric: tabular-nums;
     }
-
-    .bar-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
+    .bar-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
     .bar-dot.en { background: var(--accent-en); }
     .bar-dot.de { background: var(--accent-de); }
-
     .bar-time { color: var(--text); opacity: 0.9; }
-
     .cal-day.zero { opacity: 0.45; }
 
     .table-wrap {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 28px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin-bottom: 28px;
     }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      font-variant-numeric: tabular-nums;
-    }
-
-    th, td {
-      padding: 10px 14px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
     th {
-      background: var(--bg3);
-      color: var(--text-dim);
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      background: var(--bg3); color: var(--text-dim); font-weight: 600;
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em;
     }
-
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(255,255,255,0.02); cursor: pointer; }
-
     td.en-col { color: var(--accent-en); }
     td.de-col { color: var(--accent-de); }
     td.total-col { color: var(--accent-total); }
-
     .zero-cell { color: var(--text-dim) !important; opacity: 0.6; }
 
     .add-form {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      margin-bottom: 28px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin-bottom: 28px;
     }
-
-    .add-form h3 {
-      font-size: 0.95rem;
-      margin-bottom: 14px;
-      color: var(--text-dim);
+    .add-form h3 { font-size: 0.95rem; margin-bottom: 14px; color: var(--text-dim); }
+    .form-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 0.75rem; color: var(--text-dim); }
+    input[type="date"], input[type="text"], input[type="number"] {
+      background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+      padding: 9px 12px; border-radius: 10px; font-size: 0.9rem; min-width: 120px;
     }
-
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: flex-end;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .form-group label {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-    }
-
-    input[type="date"],
-    input[type="text"] {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 9px 12px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      min-width: 130px;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: var(--accent-en);
-    }
-
+    input:focus { outline: none; border-color: var(--accent-en); }
     .btn-primary {
-      background: #1a3a4a;
-      border: 1px solid var(--accent-en);
-      color: var(--accent-en);
-      padding: 9px 18px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
+      background: #1a3a4a; border: 1px solid var(--accent-en); color: var(--accent-en);
+      padding: 9px 18px; border-radius: 10px; font-weight: 600; cursor: pointer;
     }
-
     .btn-primary:hover { background: #204556; }
-
-    footer {
-      text-align: center;
-      color: var(--text-dim);
-      font-size: 0.8rem;
-      margin-top: 20px;
-    }
-
+    footer { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin-top: 20px; }
     .streak {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #1a2e1a;
-      border: 1px solid #2e4a2e;
-      color: var(--green);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #1a2e1a; border: 1px solid #2e4a2e; color: var(--green);
+      padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
     }
   </style>
 </head>
@@ -573,7 +269,6 @@
       <div class="streak" id="streakBadge">🔥 —</div>
     </header>
 
-    <!-- All-time stats -->
     <div class="stats-grid">
       <div class="card en">
         <div class="label">English · всего</div>
@@ -597,64 +292,58 @@
       </div>
     </div>
 
-    <!-- Period filter -->
-    <div class="period-bar">
-      <span class="period-label">Период</span>
-      <button type="button" class="period-btn" data-period="7">7 дней</button>
-      <button type="button" class="period-btn" data-period="14">14 дней</button>
-      <button type="button" class="period-btn active" data-period="30">30 дней</button>
-      <button type="button" class="period-btn" data-period="month">Месяц</button>
-      <button type="button" class="period-btn" data-period="60">2 мес</button>
-      <button type="button" class="period-btn" data-period="90">3 мес</button>
-      <button type="button" class="period-btn" data-period="all">Всё</button>
-      <button type="button" class="period-btn" data-period="custom">Свой</button>
-      <div class="period-custom" id="periodCustom">
-        <input type="date" id="periodFrom" />
-        <span style="color:var(--text-dim)">—</span>
-        <input type="date" id="periodTo" />
-        <button type="button" class="period-btn active" id="periodApply">Применить</button>
-      </div>
-      <div class="period-hint" id="periodHint">Графики и сводка за выбранный период</div>
-    </div>
-
-    <div class="period-stats" id="periodStats">
-      <div class="mini en">
-        <div class="mlabel">EN за период</div>
-        <div class="mval" id="pEn">—</div>
-      </div>
-      <div class="mini de">
-        <div class="mlabel">DE за период</div>
-        <div class="mval" id="pDe">—</div>
-      </div>
-      <div class="mini total">
-        <div class="mlabel">Всего за период</div>
-        <div class="mval" id="pTotal">—</div>
-      </div>
-      <div class="mini avg">
-        <div class="mlabel">Ср. / день (активные)</div>
-        <div class="mval" id="pAvg">—</div>
+    <!-- Goals -->
+    <div class="goals-section">
+      <h3>Цели</h3>
+      <div class="goals-row">
+        <div class="goal-rings" id="goalRings">
+          <div class="goals-empty" id="goalsEmpty">Пока нет целей — добавь справа</div>
+        </div>
+        <div class="goal-form">
+          <input type="text" id="goalName" placeholder="Название (напр. 100 ч EN)" />
+          <input type="number" id="goalHours" placeholder="Часы" min="0.1" step="0.5" />
+          <select id="goalLang">
+            <option value="total">Всего (EN+DE)</option>
+            <option value="en">Только English</option>
+            <option value="de">Только Deutsch</option>
+          </select>
+          <button type="button" id="goalAdd">+ Добавить цель</button>
+        </div>
       </div>
     </div>
 
-    <!-- Charts -->
-    <div class="charts-row stack" id="chartsRow">
+    <!-- Charts side by side -->
+    <div class="charts-row" id="chartsRow">
       <div class="chart-card">
         <h3>Накопительно (часы)</h3>
+        <div class="chart-filters" id="cumFilters" data-chart="cum"></div>
+        <div class="chart-custom" id="cumCustom">
+          <input type="date" id="cumFrom" />
+          <span style="color:var(--text-dim);font-size:0.75rem">—</span>
+          <input type="date" id="cumTo" />
+          <button type="button" class="cf active" id="cumApply">OK</button>
+        </div>
         <div class="chart-wrap"><canvas id="cumChart"></canvas></div>
+        <div class="chart-hint" id="cumHint"></div>
       </div>
       <div class="chart-card">
-        <h3>
-          <span id="dailyChartTitle">По дням (минуты)</span>
-          <span class="chart-tools">
-            <button type="button" class="tiny active" id="btnAggDay" data-agg="day">Дни</button>
-            <button type="button" class="tiny" id="btnAggWeek" data-agg="week">Недели</button>
-          </span>
-        </h3>
-        <div class="chart-wrap tall"><canvas id="dailyChart"></canvas></div>
+        <h3>По дням / неделям (минуты)</h3>
+        <div class="chart-filters" id="barFilters" data-chart="bar"></div>
+        <div class="chart-custom" id="barCustom">
+          <input type="date" id="barFrom" />
+          <span style="color:var(--text-dim);font-size:0.75rem">—</span>
+          <input type="date" id="barTo" />
+          <button type="button" class="cf active" id="barApply">OK</button>
+        </div>
+        <div class="chart-filters" style="margin-top:2px">
+          <button type="button" class="cf agg" id="btnAggDay" data-agg="day">Дни</button>
+          <button type="button" class="cf agg active" id="btnAggWeek" data-agg="week">Недели</button>
+        </div>
+        <div class="chart-wrap"><canvas id="dailyChart"></canvas></div>
+        <div class="chart-hint" id="barHint"></div>
       </div>
     </div>
 
-    <!-- Add entry -->
     <div class="add-form">
       <h3>Добавить / изменить день</h3>
       <div class="form-row">
@@ -674,7 +363,6 @@
       </div>
     </div>
 
-    <!-- Calendar -->
     <div class="section-title">Календарь</div>
     <div class="month-nav">
       <button type="button" onclick="changeMonth(-1)">‹</button>
@@ -683,7 +371,6 @@
     </div>
     <div class="calendar" id="calendar"></div>
 
-    <!-- History (collapsible) -->
     <div class="section-title collapsible" id="historyToggle" role="button" tabindex="0">
       <span>История <span id="historyCount" style="color:var(--text-dim);font-weight:500;font-size:0.85rem"></span></span>
       <span class="collapse-chevron" id="historyChevron">▼</span>
@@ -698,12 +385,7 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>Дата</th>
-              <th>English</th>
-              <th>Deutsch</th>
-              <th>Всего</th>
-            </tr>
+            <tr><th>Дата</th><th>English</th><th>Deutsch</th><th>Всего</th></tr>
           </thead>
           <tbody id="tableBody"></tbody>
         </table>
@@ -715,7 +397,6 @@
 
   <script>
 
-    // ===== Initial data from 15 May 2026 (only used if localStorage is empty) =====
     const START = '2026-05-15';
     const engRaw = [
       "6:00:00","0:25:30","0:14:30","0:06:30","0:11:00","0:08:10","0:00:50","0:09:00","0:19:00","0:03:00",
@@ -738,9 +419,20 @@
       "0:45:20","0:23:00","-","-","-","-","-","0:40:00"
     ];
 
-    // IMPORTANT: storage key must stay 'ci-tracker-v1' to keep existing user data
     const STORAGE_KEY = 'ci-tracker-v1';
     const UI_KEY = 'ci-tracker-ui-v1';
+    const GOALS_KEY = 'ci-tracker-goals-v1';
+
+    const PERIODS = [
+      { id: '7', label: '7д' },
+      { id: '14', label: '14д' },
+      { id: '30', label: '30д' },
+      { id: 'month', label: 'Месяц' },
+      { id: '60', label: '2м' },
+      { id: '90', label: '3м' },
+      { id: 'all', label: 'Всё' },
+      { id: 'custom', label: 'Свой' }
+    ];
 
     function parseTime(s) {
       if (!s || s.trim() === '-' || s.trim() === '') return 0;
@@ -761,7 +453,6 @@
       return `${m}:${String(s).padStart(2,'0')}`;
     }
 
-    // Local calendar date YYYY-MM-DD (avoid UTC shift)
     function dateStr(d) {
       const y = d.getFullYear();
       const m = String(d.getMonth() + 1).padStart(2, '0');
@@ -774,7 +465,16 @@
       return new Date(y, m - 1, d, 12, 0, 0);
     }
 
+    function todayLocal() { return dateStr(new Date()); }
+
+    function addDaysKey(key, n) {
+      const d = parseDateKey(key);
+      d.setDate(d.getDate() + n);
+      return dateStr(d);
+    }
+
     let data = {};
+    let goals = [];
 
     const storage = (() => {
       try {
@@ -795,113 +495,124 @@
     function initData() {
       const stored = storage.getItem(STORAGE_KEY);
       if (stored) {
-        try {
-          data = JSON.parse(stored);
-          return; // keep all existing records
-        } catch (e) { /* fall through to seed */ }
+        try { data = JSON.parse(stored); return; } catch (e) {}
       }
       let d = new Date(START + 'T12:00:00');
       for (let i = 0; i < engRaw.length; i++) {
-        const key = dateStr(d);
-        data[key] = {
-          en: parseTime(engRaw[i]),
-          de: parseTime(deuRaw[i])
-        };
+        data[dateStr(d)] = { en: parseTime(engRaw[i]), de: parseTime(deuRaw[i]) };
         d.setDate(d.getDate() + 1);
       }
-      save();
+      saveData();
     }
 
-    function save() {
+    function saveData() {
+      try { storage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    }
+
+    function loadGoals() {
       try {
-        storage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) { /* ignore */ }
+        const raw = storage.getItem(GOALS_KEY);
+        if (raw) goals = JSON.parse(raw) || [];
+      } catch (e) { goals = []; }
     }
 
-    function getSortedDates() {
-      return Object.keys(data).sort();
+    function saveGoals() {
+      try { storage.setItem(GOALS_KEY, JSON.stringify(goals)); } catch (e) {}
     }
 
-    // ===== Period =====
-    let periodMode = '30'; // 7|14|30|60|90|month|all|custom
-    let customFrom = '';
-    let customTo = '';
+    function getSortedDates() { return Object.keys(data).sort(); }
 
-    function todayLocal() {
-      return dateStr(new Date());
-    }
-
-    function addDaysKey(key, n) {
-      const d = parseDateKey(key);
-      d.setDate(d.getDate() + n);
-      return dateStr(d);
-    }
-
-    function getPeriodRange() {
-      const today = todayLocal();
-      if (periodMode === 'all') {
-        const keys = getSortedDates();
-        if (!keys.length) return { from: today, to: today };
-        return { from: keys[0], to: keys[keys.length - 1] };
-      }
-      if (periodMode === 'month') {
-        const now = new Date();
-        const from = dateStr(new Date(now.getFullYear(), now.getMonth(), 1));
-        const to = dateStr(new Date(now.getFullYear(), now.getMonth() + 1, 0));
-        return { from, to };
-      }
-      if (periodMode === 'custom') {
-        const from = customFrom || today;
-        const to = customTo || today;
-        return from <= to ? { from, to } : { from: to, to: from };
-      }
-      const days = parseInt(periodMode, 10) || 30;
-      return { from: addDaysKey(today, -(days - 1)), to: today };
-    }
-
-    function datesInPeriod() {
-      const { from, to } = getPeriodRange();
-      return getSortedDates().filter((k) => k >= from && k <= to);
-    }
-
-    function periodLabel() {
-      const { from, to } = getPeriodRange();
-      const map = {
-        '7': '7 дней',
-        '14': '14 дней',
-        '30': '30 дней',
-        '60': '2 месяца',
-        '90': '3 месяца',
-        month: 'текущий месяц',
-        all: 'всё время',
-        custom: 'свой период'
-      };
-      return `${map[periodMode] || periodMode}: ${from} → ${to}`;
-    }
-
-    // ===== Stats (all-time cards) =====
-    function updateStats() {
+    function totalsAll() {
       let en = 0, de = 0, active = 0;
-      const dates = getSortedDates();
-      dates.forEach((k) => {
+      getSortedDates().forEach((k) => {
         en += data[k].en || 0;
         de += data[k].de || 0;
         if ((data[k].en || 0) > 0 || (data[k].de || 0) > 0) active++;
       });
-      const total = en + de;
-      const days = dates.length || 1;
+      return { en, de, total: en + de, active, days: getSortedDates().length || 1 };
+    }
 
-      document.getElementById('totalEn').textContent = fmtTime(en);
-      document.getElementById('totalDe').textContent = fmtTime(de);
-      document.getElementById('totalAll').textContent = fmtTime(total);
-      document.getElementById('daysActive').textContent = active;
-      document.getElementById('daysTotal').textContent = `из ${dates.length} дней`;
+    // Per-chart period state
+    // cum default: all | bar default: 30 + week
+    let cumPeriod = { mode: 'all', from: '', to: '' };
+    let barPeriod = { mode: '30', from: '', to: '' };
+    let barAgg = 'week';
 
-      document.getElementById('avgEn').textContent = `ср. ${fmtTime(Math.round(en / days))} / день`;
-      document.getElementById('avgDe').textContent = `ср. ${fmtTime(Math.round(de / days))} / день`;
-      document.getElementById('avgAll').textContent = `ср. ${fmtTime(Math.round(total / days))} / день`;
+    function resolveRange(p) {
+      const today = todayLocal();
+      if (p.mode === 'all') {
+        const keys = getSortedDates();
+        if (!keys.length) return { from: today, to: today };
+        return { from: keys[0], to: keys[keys.length - 1] };
+      }
+      if (p.mode === 'month') {
+        const now = new Date();
+        return {
+          from: dateStr(new Date(now.getFullYear(), now.getMonth(), 1)),
+          to: dateStr(new Date(now.getFullYear(), now.getMonth() + 1, 0))
+        };
+      }
+      if (p.mode === 'custom') {
+        const from = p.from || today;
+        const to = p.to || today;
+        return from <= to ? { from, to } : { from: to, to: from };
+      }
+      const days = parseInt(p.mode, 10) || 30;
+      return { from: addDaysKey(today, -(days - 1)), to: today };
+    }
 
-      // Streak (local dates)
+    function datesInRange(range) {
+      return getSortedDates().filter((k) => k >= range.from && k <= range.to);
+    }
+
+    function periodLabel(p) {
+      const r = resolveRange(p);
+      const map = { '7':'7 дней','14':'14 дней','30':'30 дней','60':'2 мес','90':'3 мес', month:'месяц', all:'всё время', custom:'свой' };
+      return `${map[p.mode] || p.mode}: ${r.from} → ${r.to}`;
+    }
+
+    function buildFilterBar(containerId, periodObj, customId) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = '';
+      PERIODS.forEach((pr) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'cf' + (periodObj.mode === pr.id ? ' active' : '');
+        b.textContent = pr.label;
+        b.dataset.period = pr.id;
+        b.addEventListener('click', () => {
+          periodObj.mode = pr.id;
+          el.querySelectorAll('.cf').forEach((x) => {
+            if (!x.classList.contains('agg')) x.classList.toggle('active', x.dataset.period === pr.id);
+          });
+          document.getElementById(customId).classList.toggle('show', pr.id === 'custom');
+          if (pr.id === 'custom' && !periodObj.from) {
+            periodObj.from = addDaysKey(todayLocal(), -29);
+            periodObj.to = todayLocal();
+            const prefix = customId.replace('Custom', '');
+            document.getElementById(prefix + 'From').value = periodObj.from;
+            document.getElementById(prefix + 'To').value = periodObj.to;
+          }
+          saveUI();
+          updateCharts();
+        });
+        el.appendChild(b);
+      });
+      document.getElementById(customId).classList.toggle('show', periodObj.mode === 'custom');
+    }
+
+    // ===== Stats =====
+    function updateStats() {
+      const t = totalsAll();
+      document.getElementById('totalEn').textContent = fmtTime(t.en);
+      document.getElementById('totalDe').textContent = fmtTime(t.de);
+      document.getElementById('totalAll').textContent = fmtTime(t.total);
+      document.getElementById('daysActive').textContent = t.active;
+      document.getElementById('daysTotal').textContent = `из ${t.days} дней`;
+      document.getElementById('avgEn').textContent = `ср. ${fmtTime(Math.round(t.en / t.days))} / день`;
+      document.getElementById('avgDe').textContent = `ср. ${fmtTime(Math.round(t.de / t.days))} / день`;
+      document.getElementById('avgAll').textContent = `ср. ${fmtTime(Math.round(t.total / t.days))} / день`;
+
       let streak = 0;
       const today = todayLocal();
       let check = new Date();
@@ -912,38 +623,80 @@
           check.setDate(check.getDate() - 1);
         } else if (key === today) {
           check.setDate(check.getDate() - 1);
-        } else {
-          break;
-        }
+        } else break;
       }
       document.getElementById('streakBadge').textContent = streak > 0 ? `🔥 ${streak} дн.` : '🔥 0';
     }
 
-    function updatePeriodStats() {
-      const keys = datesInPeriod();
-      let en = 0, de = 0, active = 0;
-      keys.forEach((k) => {
-        en += data[k].en || 0;
-        de += data[k].de || 0;
-        if ((data[k].en || 0) > 0 || (data[k].de || 0) > 0) active++;
+    // ===== Goals =====
+    const RING_COLORS = {
+      en: '#4fc3f7',
+      de: '#ff8a65',
+      total: '#81c784'
+    };
+
+    function renderGoals() {
+      const box = document.getElementById('goalRings');
+      const empty = document.getElementById('goalsEmpty');
+      box.querySelectorAll('.goal-ring').forEach((n) => n.remove());
+
+      if (!goals.length) {
+        if (empty) empty.style.display = 'block';
+        return;
+      }
+      if (empty) empty.style.display = 'none';
+
+      const t = totalsAll();
+      const r = 42;
+      const c = 2 * Math.PI * r;
+
+      goals.forEach((g) => {
+        let doneSec = t.total;
+        if (g.lang === 'en') doneSec = t.en;
+        if (g.lang === 'de') doneSec = t.de;
+        const targetSec = (Number(g.hours) || 0) * 3600;
+        const pct = targetSec > 0 ? Math.min(100, (doneSec / targetSec) * 100) : 0;
+        const offset = c * (1 - pct / 100);
+        const color = RING_COLORS[g.lang] || RING_COLORS.total;
+        const langLabel = g.lang === 'en' ? 'EN' : g.lang === 'de' ? 'DE' : 'всего';
+
+        const div = document.createElement('div');
+        div.className = 'goal-ring';
+        div.innerHTML = `
+          <svg viewBox="0 0 100 100">
+            <circle class="ring-bg" cx="50" cy="50" r="${r}"></circle>
+            <circle class="ring-fg" cx="50" cy="50" r="${r}"
+              stroke="${color}"
+              stroke-dasharray="${c.toFixed(2)}"
+              stroke-dashoffset="${offset.toFixed(2)}"></circle>
+            <text x="50" y="54" text-anchor="middle" fill="${color}"
+              font-size="16" font-weight="700">${Math.round(pct)}%</text>
+          </svg>
+          <div class="gname">${escapeHtml(g.name || 'Цель')}</div>
+          <div class="gmeta">${fmtTime(doneSec)} / ${g.hours}ч · ${langLabel}</div>
+          <button type="button" class="gdel" data-id="${g.id}">удалить</button>
+        `;
+        box.appendChild(div);
       });
-      const total = en + de;
-      document.getElementById('pEn').textContent = fmtTime(en);
-      document.getElementById('pDe').textContent = fmtTime(de);
-      document.getElementById('pTotal').textContent = fmtTime(total);
-      document.getElementById('pAvg').textContent = active
-        ? fmtTime(Math.round(total / active))
-        : '—';
-      document.getElementById('periodHint').textContent = periodLabel();
+
+      box.querySelectorAll('.gdel').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          goals = goals.filter((x) => x.id !== btn.dataset.id);
+          saveGoals();
+          renderGoals();
+        });
+      });
     }
 
-    // ===== Charts (period-filtered) =====
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ===== Charts =====
     let cumChart, dailyChart;
-    let barAgg = 'day'; // day | week — auto week if many points
 
     function isoWeekKey(dateKey) {
       const d = parseDateKey(dateKey);
-      // Monday-based week start
       const day = (d.getDay() + 6) % 7;
       const monday = new Date(d);
       monday.setDate(d.getDate() - day);
@@ -954,80 +707,17 @@
       const mon = parseDateKey(mondayKey);
       const sun = new Date(mon);
       sun.setDate(mon.getDate() + 6);
-      const a = mondayKey.slice(5);
-      const b = dateStr(sun).slice(5);
-      return a + '–' + b;
+      return mondayKey.slice(5) + '–' + dateStr(sun).slice(5);
     }
 
-    function updateCharts() {
-      const dates = datesInPeriod();
-      // cumulative always day-level within period
-      const labelsCum = dates.map((d) => d.slice(5));
-      let cumEn = 0, cumDe = 0;
-      const cumEnData = [], cumDeData = [];
-      dates.forEach((k) => {
-        cumEn += data[k].en || 0;
-        cumDe += data[k].de || 0;
-        cumEnData.push(+(cumEn / 3600).toFixed(2));
-        cumDeData.push(+(cumDe / 3600).toFixed(2));
-      });
-
-      // bar chart: day or week aggregation
-      let useWeek = barAgg === 'week' || (barAgg === 'day' && dates.length > 21 && periodMode !== '7' && periodMode !== '14');
-      // if user explicitly chose day, respect it; auto-hint only when default day + many points
-      if (barAgg === 'day') useWeek = false;
-      if (barAgg === 'week') useWeek = true;
-
-      let labelsBar = [];
-      let dailyEn = [], dailyDe = [];
-
-      if (useWeek) {
-        const weeks = {};
-        const order = [];
-        dates.forEach((k) => {
-          const wk = isoWeekKey(k);
-          if (!weeks[wk]) {
-            weeks[wk] = { en: 0, de: 0 };
-            order.push(wk);
-          }
-          weeks[wk].en += data[k].en || 0;
-          weeks[wk].de += data[k].de || 0;
-        });
-        order.forEach((wk) => {
-          labelsBar.push(weekLabel(wk));
-          dailyEn.push(+((weeks[wk].en) / 60).toFixed(1));
-          dailyDe.push(+((weeks[wk].de) / 60).toFixed(1));
-        });
-        document.getElementById('dailyChartTitle').textContent = 'По неделям (минуты)';
-      } else {
-        dates.forEach((k) => {
-          labelsBar.push(k.slice(5));
-          dailyEn.push(+((data[k].en || 0) / 60).toFixed(1));
-          dailyDe.push(+((data[k].de || 0) / 60).toFixed(1));
-        });
-        document.getElementById('dailyChartTitle').textContent = 'По дням (минуты)';
-      }
-
-      document.getElementById('btnAggDay').classList.toggle('active', !useWeek);
-      document.getElementById('btnAggWeek').classList.toggle('active', useWeek);
-
-      const maxTicks = useWeek ? 16 : Math.min(14, Math.max(6, Math.floor(labelsBar.length / 2)));
-
-      const commonOpts = {
+    function chartOpts(maxTicks) {
+      return {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: { labels: { color: '#9aa0a6', boxWidth: 12 } }
-        },
+        plugins: { legend: { labels: { color: '#9aa0a6', boxWidth: 12 } } },
         scales: {
           x: {
-            ticks: {
-              color: '#9aa0a6',
-              maxTicksLimit: maxTicks,
-              maxRotation: labelsBar.length > 14 ? 45 : 0,
-              minRotation: 0,
-              autoSkip: true
-            },
+            ticks: { color: '#9aa0a6', maxTicksLimit: maxTicks, maxRotation: 45, autoSkip: true },
             grid: { color: '#2a2f3a' }
           },
           y: {
@@ -1037,49 +727,76 @@
           }
         }
       };
+    }
+
+    function updateCharts() {
+      // --- cumulative ---
+      const cumRange = resolveRange(cumPeriod);
+      const cumDates = datesInRange(cumRange);
+      let cEn = 0, cDe = 0;
+      const cumLabels = [], cumEn = [], cumDe = [];
+      cumDates.forEach((k) => {
+        cEn += data[k].en || 0;
+        cDe += data[k].de || 0;
+        cumLabels.push(k.slice(5));
+        cumEn.push(+(cEn / 3600).toFixed(2));
+        cumDe.push(+(cDe / 3600).toFixed(2));
+      });
+      document.getElementById('cumHint').textContent = periodLabel(cumPeriod);
 
       if (cumChart) cumChart.destroy();
       cumChart = new Chart(document.getElementById('cumChart'), {
         type: 'line',
         data: {
-          labels: labelsCum,
+          labels: cumLabels,
           datasets: [
             {
-              label: 'English',
-              data: cumEnData,
-              borderColor: '#4fc3f7',
-              backgroundColor: 'rgba(79,195,247,0.12)',
-              fill: true,
-              tension: 0.3,
-              pointRadius: labelsCum.length <= 31 ? 2 : 0,
-              borderWidth: 2
+              label: 'English', data: cumEn, borderColor: '#4fc3f7',
+              backgroundColor: 'rgba(79,195,247,0.12)', fill: true, tension: 0.3,
+              pointRadius: cumLabels.length <= 40 ? 2 : 0, borderWidth: 2
             },
             {
-              label: 'Deutsch',
-              data: cumDeData,
-              borderColor: '#ff8a65',
-              backgroundColor: 'rgba(255,138,101,0.12)',
-              fill: true,
-              tension: 0.3,
-              pointRadius: labelsCum.length <= 31 ? 2 : 0,
-              borderWidth: 2
+              label: 'Deutsch', data: cumDe, borderColor: '#ff8a65',
+              backgroundColor: 'rgba(255,138,101,0.12)', fill: true, tension: 0.3,
+              pointRadius: cumLabels.length <= 40 ? 2 : 0, borderWidth: 2
             }
           ]
         },
-        options: {
-          ...commonOpts,
-          scales: {
-            ...commonOpts.scales,
-            x: {
-              ...commonOpts.scales.x,
-              ticks: {
-                ...commonOpts.scales.x.ticks,
-                maxTicksLimit: Math.min(12, labelsCum.length)
-              }
-            }
-          }
-        }
+        options: chartOpts(Math.min(12, Math.max(6, cumLabels.length)))
       });
+
+      // --- bar ---
+      const barRange = resolveRange(barPeriod);
+      const barDates = datesInRange(barRange);
+      let labelsBar = [], dailyEn = [], dailyDe = [];
+      const useWeek = barAgg === 'week';
+
+      if (useWeek) {
+        const weeks = {};
+        const order = [];
+        barDates.forEach((k) => {
+          const wk = isoWeekKey(k);
+          if (!weeks[wk]) { weeks[wk] = { en: 0, de: 0 }; order.push(wk); }
+          weeks[wk].en += data[k].en || 0;
+          weeks[wk].de += data[k].de || 0;
+        });
+        order.forEach((wk) => {
+          labelsBar.push(weekLabel(wk));
+          dailyEn.push(+(weeks[wk].en / 60).toFixed(1));
+          dailyDe.push(+(weeks[wk].de / 60).toFixed(1));
+        });
+      } else {
+        barDates.forEach((k) => {
+          labelsBar.push(k.slice(5));
+          dailyEn.push(+((data[k].en || 0) / 60).toFixed(1));
+          dailyDe.push(+((data[k].de || 0) / 60).toFixed(1));
+        });
+      }
+
+      document.getElementById('barHint').textContent =
+        periodLabel(barPeriod) + (useWeek ? ' · недели' : ' · дни');
+      document.getElementById('btnAggDay').classList.toggle('active', !useWeek);
+      document.getElementById('btnAggWeek').classList.toggle('active', useWeek);
 
       if (dailyChart) dailyChart.destroy();
       dailyChart = new Chart(document.getElementById('dailyChart'), {
@@ -1088,22 +805,18 @@
           labels: labelsBar,
           datasets: [
             {
-              label: useWeek ? 'EN мин / нед' : 'EN мин',
-              data: dailyEn,
-              backgroundColor: 'rgba(79,195,247,0.75)',
-              borderRadius: 4,
-              maxBarThickness: useWeek ? 48 : 28
+              label: useWeek ? 'EN мин/нед' : 'EN мин',
+              data: dailyEn, backgroundColor: 'rgba(79,195,247,0.75)',
+              borderRadius: 4, maxBarThickness: useWeek ? 40 : 22
             },
             {
-              label: useWeek ? 'DE мин / нед' : 'DE мин',
-              data: dailyDe,
-              backgroundColor: 'rgba(255,138,101,0.75)',
-              borderRadius: 4,
-              maxBarThickness: useWeek ? 48 : 28
+              label: useWeek ? 'DE мин/нед' : 'DE мин',
+              data: dailyDe, backgroundColor: 'rgba(255,138,101,0.75)',
+              borderRadius: 4, maxBarThickness: useWeek ? 40 : 22
             }
           ]
         },
-        options: commonOpts
+        options: chartOpts(useWeek ? 14 : Math.min(12, labelsBar.length))
       });
     }
 
@@ -1126,46 +839,38 @@
     function renderCalendar() {
       const monthNames = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
       document.getElementById('monthLabel').textContent = `${monthNames[viewMonth]} ${viewYear}`;
-
       const first = new Date(viewYear, viewMonth, 1);
       const last = new Date(viewYear, viewMonth + 1, 0);
       const startPad = (first.getDay() + 6) % 7;
       const today = todayLocal();
-
       const el = document.getElementById('calendar');
       el.innerHTML = '';
-
       ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach((d) => {
         const h = document.createElement('div');
         h.className = 'cal-head';
         h.textContent = d;
         el.appendChild(h);
       });
-
       for (let i = 0; i < startPad; i++) {
         const e = document.createElement('div');
         e.className = 'cal-day empty';
         el.appendChild(e);
       }
-
       for (let day = 1; day <= last.getDate(); day++) {
         const key = `${viewYear}-${String(viewMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
         const cell = document.createElement('div');
         cell.className = 'cal-day';
         if (key === today) cell.classList.add('today');
-
         const entry = data[key];
         const en = entry ? entry.en : 0;
         const de = entry ? entry.de : 0;
         if (en === 0 && de === 0) cell.classList.add('zero');
-
         let html = `<div class="num">${day}</div><div class="bars">`;
         if (en > 0) html += `<div class="bar-row"><span class="bar-dot en"></span><span class="bar-time">${fmtTime(en)}</span></div>`;
         if (de > 0) html += `<div class="bar-row"><span class="bar-dot de"></span><span class="bar-time">${fmtTime(de)}</span></div>`;
         if (en === 0 && de === 0) html += `<div class="bar-row" style="opacity:0.4">—</div>`;
         html += '</div>';
         cell.innerHTML = html;
-
         cell.onclick = () => {
           document.getElementById('inputDate').value = key;
           document.getElementById('inputEn').value = en ? fmtTime(en).replace(/^—$/, '') : '';
@@ -1177,7 +882,6 @@
 
     // ===== Table =====
     let filter = 'all';
-
     function setFilter(f) {
       filter = f;
       document.getElementById('btnAll').classList.toggle('active', f === 'all');
@@ -1189,24 +893,20 @@
     function renderTable() {
       const tbody = document.getElementById('tableBody');
       tbody.innerHTML = '';
-      const dates = getSortedDates().reverse();
       let shown = 0;
-
-      dates.forEach((k) => {
+      getSortedDates().reverse().forEach((k) => {
         const en = data[k].en || 0;
         const de = data[k].de || 0;
         if (filter === 'en' && en === 0) return;
         if (filter === 'de' && de === 0) return;
         shown++;
-
         const tr = document.createElement('tr');
         const total = en + de;
         tr.innerHTML = `
           <td>${k}</td>
           <td class="en-col ${en===0?'zero-cell':''}">${fmtTime(en)}</td>
           <td class="de-col ${de===0?'zero-cell':''}">${fmtTime(de)}</td>
-          <td class="total-col ${total===0?'zero-cell':''}">${fmtTime(total)}</td>
-        `;
+          <td class="total-col ${total===0?'zero-cell':''}">${fmtTime(total)}</td>`;
         tr.onclick = () => {
           document.getElementById('inputDate').value = k;
           document.getElementById('inputEn').value = en ? fmtTime(en) : '';
@@ -1214,17 +914,17 @@
         };
         tbody.appendChild(tr);
       });
-
       document.getElementById('historyCount').textContent = `(${shown})`;
     }
 
     function saveEntry() {
       const date = document.getElementById('inputDate').value;
       if (!date) { alert('Укажи дату'); return; }
-      const en = parseTime(document.getElementById('inputEn').value);
-      const de = parseTime(document.getElementById('inputDe').value);
-      data[date] = { en, de };
-      save();
+      data[date] = {
+        en: parseTime(document.getElementById('inputEn').value),
+        de: parseTime(document.getElementById('inputDe').value)
+      };
+      saveData();
       refresh();
     }
 
@@ -1238,27 +938,6 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'ci-tracker.csv';
       a.click();
-    }
-
-    // ===== UI: period + collapse =====
-    function setPeriod(mode) {
-      periodMode = mode;
-      document.querySelectorAll('.period-btn[data-period]').forEach((b) => {
-        b.classList.toggle('active', b.dataset.period === mode);
-      });
-      document.getElementById('periodCustom').classList.toggle('show', mode === 'custom');
-      if (mode === 'custom') {
-        const { from, to } = getPeriodRange();
-        if (!customFrom) {
-          document.getElementById('periodFrom').value = addDaysKey(todayLocal(), -29);
-          document.getElementById('periodTo').value = todayLocal();
-          customFrom = document.getElementById('periodFrom').value;
-          customTo = document.getElementById('periodTo').value;
-        }
-      }
-      saveUI();
-      updatePeriodStats();
-      updateCharts();
     }
 
     function toggleHistory() {
@@ -1275,9 +954,8 @@
         const raw = storage.getItem(UI_KEY);
         if (!raw) return;
         const ui = JSON.parse(raw);
-        if (ui.periodMode) periodMode = ui.periodMode;
-        if (ui.customFrom) customFrom = ui.customFrom;
-        if (ui.customTo) customTo = ui.customTo;
+        if (ui.cumPeriod) cumPeriod = { ...cumPeriod, ...ui.cumPeriod };
+        if (ui.barPeriod) barPeriod = { ...barPeriod, ...ui.barPeriod };
         if (ui.barAgg === 'day' || ui.barAgg === 'week') barAgg = ui.barAgg;
         if (ui.historyOpen) {
           document.getElementById('historyBody').classList.remove('collapsed');
@@ -1289,10 +967,7 @@
     function saveUI() {
       try {
         storage.setItem(UI_KEY, JSON.stringify({
-          periodMode,
-          customFrom,
-          customTo,
-          barAgg,
+          cumPeriod, barPeriod, barAgg,
           historyOpen: !document.getElementById('historyBody').classList.contains('collapsed')
         }));
       } catch (e) {}
@@ -1300,50 +975,64 @@
 
     function refresh() {
       updateStats();
-      updatePeriodStats();
+      renderGoals();
       updateCharts();
       renderCalendar();
       renderTable();
     }
 
-    // ===== Init =====
+    // Init
     initData();
+    loadGoals();
     initMonth();
     loadUI();
 
     document.getElementById('inputDate').value = todayLocal();
-    document.getElementById('periodFrom').value = customFrom || addDaysKey(todayLocal(), -29);
-    document.getElementById('periodTo').value = customTo || todayLocal();
-    customFrom = document.getElementById('periodFrom').value;
-    customTo = document.getElementById('periodTo').value;
+    document.getElementById('cumFrom').value = cumPeriod.from || addDaysKey(todayLocal(), -29);
+    document.getElementById('cumTo').value = cumPeriod.to || todayLocal();
+    document.getElementById('barFrom').value = barPeriod.from || addDaysKey(todayLocal(), -29);
+    document.getElementById('barTo').value = barPeriod.to || todayLocal();
 
-    document.querySelectorAll('.period-btn[data-period]').forEach((btn) => {
-      btn.addEventListener('click', () => setPeriod(btn.dataset.period));
-      btn.classList.toggle('active', btn.dataset.period === periodMode);
-    });
-    document.getElementById('periodCustom').classList.toggle('show', periodMode === 'custom');
+    buildFilterBar('cumFilters', cumPeriod, 'cumCustom');
+    buildFilterBar('barFilters', barPeriod, 'barCustom');
 
-    document.getElementById('periodApply').addEventListener('click', () => {
-      customFrom = document.getElementById('periodFrom').value;
-      customTo = document.getElementById('periodTo').value;
-      periodMode = 'custom';
-      document.querySelectorAll('.period-btn[data-period]').forEach((b) => {
-        b.classList.toggle('active', b.dataset.period === 'custom');
-      });
+    document.getElementById('cumApply').addEventListener('click', () => {
+      cumPeriod.mode = 'custom';
+      cumPeriod.from = document.getElementById('cumFrom').value;
+      cumPeriod.to = document.getElementById('cumTo').value;
+      buildFilterBar('cumFilters', cumPeriod, 'cumCustom');
       saveUI();
-      updatePeriodStats();
+      updateCharts();
+    });
+    document.getElementById('barApply').addEventListener('click', () => {
+      barPeriod.mode = 'custom';
+      barPeriod.from = document.getElementById('barFrom').value;
+      barPeriod.to = document.getElementById('barTo').value;
+      buildFilterBar('barFilters', barPeriod, 'barCustom');
+      saveUI();
       updateCharts();
     });
 
     document.getElementById('btnAggDay').addEventListener('click', () => {
-      barAgg = 'day';
-      saveUI();
-      updateCharts();
+      barAgg = 'day'; saveUI(); updateCharts();
     });
     document.getElementById('btnAggWeek').addEventListener('click', () => {
-      barAgg = 'week';
-      saveUI();
-      updateCharts();
+      barAgg = 'week'; saveUI(); updateCharts();
+    });
+
+    document.getElementById('goalAdd').addEventListener('click', () => {
+      const name = document.getElementById('goalName').value.trim() || 'Цель';
+      const hours = parseFloat(document.getElementById('goalHours').value);
+      if (!hours || hours <= 0) { alert('Укажи часы цели'); return; }
+      const lang = document.getElementById('goalLang').value;
+      goals.push({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5),
+        name, hours, lang
+      });
+      saveGoals();
+      document.getElementById('goalName').value = '';
+      document.getElementById('goalHours').value = '';
+      renderGoals();
     });
 
     document.getElementById('historyToggle').addEventListener('click', toggleHistory);
